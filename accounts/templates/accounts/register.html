@@ -1,0 +1,32 @@
+ <div id="login">
+        <form class="form-horizontal" name="LoginForm" action="/accounts/register" method="post">
+        {% csrf_token %}
+        {% if next %}
+            <input type="hidden" name="next" value="{{ next }}" />
+        {% endif %}
+        <div class="control-group">
+            <label class="control-label" for="email">E-Mail</label>
+            <div class="controls">
+                <input type="text" id="email" name="email"  placeholder="email">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="password1">Password1</label>
+            <div class="controls">
+                <input type="password" name="password1" id="password1" placeholder="Password">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="password2">Password2</label>
+            <div class="controls">
+                <input type="password" name="password2" id="password2" placeholder="Password">
+            </div>
+        </div>
+        <div class="control-group">
+        <div class="control-group">
+            <div class="controls">
+                <button type="submit" class="btn">Register</button>
+            </div>
+        </div>
+        </form>
+    </div>
