@@ -1,5 +1,10 @@
-User logged in successfully!
+{% extends "base.html" %}
+{% block content %}
 
-{% if ip %}
-    {{ ip }} 
+{% if user %}
+<div class="alert alert-success" role="alert" style="margin-top: 30px;">
+    You are logged in as <strong>{{user.email}}</strong>. You changed your IP to <strong>{{user.ip}}.</strong>
+</div>
 {% endif %}
+
+{% endblock %}

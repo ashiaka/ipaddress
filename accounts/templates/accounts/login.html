@@ -3,11 +3,8 @@
  <div id="login">
 
  <div class="container">
-
-
-
         <form class="form-horizontal form-signin" name="LoginForm" action="/accounts/login" method="post">
-        <h2 class="form-signin-heading">Please log in</h2>
+        <h2 class="form-signin-heading">Login</h2>
         {% csrf_token %}
         {% if next %}
             <input type="hidden" name="next" value="{{ next }}" />
