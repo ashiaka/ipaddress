@@ -58,3 +58,6 @@ target/
 
 #SQLITE
 *.sqlite3
+
+# IDEA
+.idea

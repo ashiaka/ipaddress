@@ -4,6 +4,8 @@ from django.contrib.auth import login as django_login, authenticate, logout as d
 
 from accounts.forms import AuthenticationForm, RegistrationForm
 # Create your views here.
+from accounts.forms.password import PasswordForm
+
 
 def login(request):
     """
@@ -66,6 +68,38 @@ def register(request):
     return render_to_response('accounts/register.html', {
         'form': form,
     }, context_instance=RequestContext(request))
+
+
+def change_password(request):
+    if not request.user.is_authenticated():
+        return render(request, 'accounts/permission_denied.html', {})
+
+    if request.method == 'POST':
+        form = PasswordForm(data=request.POST)
+        if form.is_valid():
+            user = authenticate(email=request.user.email, password=request.POST['password_old'])
+            if not user:
+                form_errors = 'Password is wrong'
+                return render_to_response('accounts/change_password.html', {
+                    'form': form, 'formerrors': form_errors,
+                }, context_instance=RequestContext(request))
+
+            user.set_password(request.POST['password1'])
+            user.save()
+            return render(request, 'accounts/login_successful.html', {'ip': user.ip})
+
+        else:
+            form_errors = form.errors
+            return render_to_response('accounts/change_password.html', {
+                'form': form, 'formerrors': form_errors,
+            }, context_instance=RequestContext(request))
+
+    else:
+        form = PasswordForm()
+    return render_to_response('accounts/change_password.html', {
+        'form': form,
+    }, context_instance=RequestContext(request))
+
 
 def logout(request):
     """
